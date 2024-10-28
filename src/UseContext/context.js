@@ -1,9 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 
-const url = "http://localhost:5000/api/v1/";
-
-// console.log(`${url}AddIncome`);
+let url = process.env.REACT_APP_BACKEND_URL;
 
 export const AppContext = createContext();
 
