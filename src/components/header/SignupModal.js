@@ -12,6 +12,10 @@ const SignupModal = ({ isOpen, onClose, onLoginClick }) => {
         e.preventDefault();
         try {
             const response = await signup({ username, email, password });
+            if (password.length < 8) {
+                alert('Password must be at least 8 characters long!');
+                return; // Exit function if password is too short
+            } 
             if (response) {
                 alert("Signup successful!");
                 onClose();
