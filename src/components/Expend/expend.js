@@ -9,16 +9,18 @@ import { useAppContext } from '../../UseContext/context';
 import { ColorRing } from 'react-loader-spinner'
 
 function Expend() {
-  const { GetExpend, GeExpend, DeleteExpend, TotalExpend, AddExpend, loadingExpend } = useAppContext();
+  const { GetExpend, GeExpend, DeleteExpend, TotalExpend, AddExpend, loadingExpend, isLoggedIn, user } = useAppContext();
 
   const [ formData, SetFormData ] = useState({
-    incomeName: '',
+    user:user? user._id: '',
+    name: '',
     amount: '',
     date: '',
     description: '',
     types: ''
 })
-  
+  // console.log("form",formData);
+  const i = user? user._id : "";
   useEffect( () => {
     GetExpend();
   }, [])

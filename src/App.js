@@ -9,7 +9,6 @@ import Transaction from './components/Transaction/transaction';
 
 function App() {
   const hello = useAppContext()
-  console.log(hello)
   return (
     <div className="App">
         <Header/>

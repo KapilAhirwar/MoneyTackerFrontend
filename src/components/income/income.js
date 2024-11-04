@@ -9,14 +9,17 @@ import { useAppContext } from '../../UseContext/context';
 import { ColorRing } from 'react-loader-spinner'
 
 function Income() {
-  const { GetIncome, GeIncome, DeleteData, TotalIncome, AddIncome, loadingIncome } = useAppContext();
+  const { GetIncome, GeIncome, DeleteData, TotalIncome, AddIncome, loadingIncome,user } = useAppContext();
   const [ formData, SetFormData ] = useState({
-        incomeName: '',
+        user:user? user._id: '',
+        name: '',
         amount: '',
         date: '',
         description: '',
         types: ''
   })
+
+  const i = user? user._id:"id";
 
   useEffect( () => {
     GetIncome();
@@ -27,6 +30,7 @@ function Income() {
   }
 
   const incomeData = GeIncome && GeIncome.data ? GeIncome.data : [];
+  // console.log
   return (
     <div className='flex flex-col h-screen gap-[5rem] w-[100%]'>
         <div className='m-[1rem] flex flex-col bg-slate-100 border-4 h-[100%] border-white text-stone-700 p-[1rem] rounded-[2rem] '>

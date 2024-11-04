@@ -72,21 +72,30 @@ function DashBoard() {
             )}
           </div>
           <div className='flex flex-col w-[100%] border-t-2 border-gray-500 pt-[2rem] justify-center items-center p-[0.5rem]'>
-            <div className='flex justify-between w-[80%] '><span>Min</span><span>Max</span></div>
-            <div className='w-[75%] h-[0.25rem] bg-green-600' ></div>
-            <div className='flex justify-between w-[80%] '>
-                <span>{(Math.min( ...income.map(item => item.amount)) <= 0) ? Math.min( ...income.map(item => item.amount)) : 0}</span>
-                <span>{(Math.max( ...income.map(item => item.amount)) >= 0 ) ? Math.max( ...income.map(item => item.amount)) : 0 }</span>
+            <div className='flex justify-between w-[80%]'><span>Min</span><span>Max</span></div>
+            <div className='w-[75%] h-[0.25rem] bg-green-600'></div>
+            <div className='flex justify-between w-[80%]'>
+              <span>
+                {(income.length > 0) ? Math.min(...income.map(item => item.amount)) : 0}
+              </span>
+              <span>
+                {(income.length > 0) ? Math.max(...income.map(item => item.amount)) : 0}
+              </span>
             </div>
           </div>
           <div className='flex flex-col mt-[0.5rem] w-[100%] justify-center items-center p-[0.5rem]'>
             <div className='flex justify-between w-[80%] text-[1.3rem]'><span>Min</span><span>Max</span></div>
-            <div className='w-[75%] h-[0.25rem] bg-red-600' ></div>
-            <div className='flex justify-between w-[80%] '>
-                <span>{(Math.min( ...expend.map(item => item.amount)) <= 0 ) ? Math.min( ...expend.map(item => item.amount)) : 0 }</span>
-                <span>{(Math.max( ...expend.map(item => item.amount)) >=0 ) ? Math.max( ...expend.map(item => item.amount)) : 0 }</span>
+            <div className='w-[75%] h-[0.25rem] bg-red-600'></div>
+            <div className='flex justify-between w-[80%]'>
+              <span>
+                {(expend.length > 0) ? Math.min(...expend.map(item => item.amount)) : 0}
+              </span>
+              <span>
+                {(expend.length > 0) ? Math.max(...expend.map(item => item.amount)) : 0}
+              </span>
             </div>
           </div>
+
         </div>
       </div>
     </div>

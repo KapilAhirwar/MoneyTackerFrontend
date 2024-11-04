@@ -4,7 +4,7 @@ import { FaPlus } from "react-icons/fa";
 
 
 function Form({Add, formData, SetFormData}) {
-
+    const {isLoggedIn} = useAppContext();
     const handleChange = (e) => {
         SetFormData({
             ...formData,
@@ -12,10 +12,17 @@ function Form({Add, formData, SetFormData}) {
         })
     }
 
+    // console.log("form data -> ",formData);
+
     const handleSubmit = async(e) => {
-        e.preventDefault();
-        Add(formData)
-        SetFormData({incomeName: '', amount: '', date: '', description: '', types: ''})
+        if(isLoggedIn){
+            e.preventDefault();
+            // console.log("form data -> ",formData);
+            Add(formData)
+            SetFormData({name: '', amount: '', date: '', description: '', types: ''})
+        }else{
+            return;
+        }
     }  
 
     return (
@@ -25,8 +32,8 @@ function Form({Add, formData, SetFormData}) {
                     <input type="text" 
                         className="text-[1.2rem] h-[3rem] border-4 outline-none border-gray-300 pl-[0.5rem] mt-[1rem] rounded-[0.5rem] w-[20rem]"
                         placeholder="Income Title" required
-                        name="incomeName" id="incomeName"
-                        value={formData.incomeName} onChange={handleChange}
+                        name="name" id="name"
+                        value={formData.name} onChange={handleChange}
                     />
                     <input type="number" 
                         className="text-[1.2rem] h-[3rem] border-4 outline-none border-gray-300 pl-[0.5rem] mt-[1rem] rounded-[0.5rem] w-[20rem]"
@@ -34,12 +41,16 @@ function Form({Add, formData, SetFormData}) {
                         name="amount" id="amount"
                         value={formData.amount} onChange={handleChange}
                     />
-                    <input type="date" 
-                        className="text-[1.2rem] h-[3rem] border-4 outline-none border-gray-300 pl-[0.5rem] mt-[1rem] rounded-[0.5rem] w-[20rem]"
-                        placeholder="Enter date" required
-                        name="date" id="date"
-                        value={formData.date} onChange={handleChange}
-                    />
+                    <input
+            type="date"
+            className="text-[1.2rem] h-[3rem] border-4 outline-none border-gray-300 pl-[0.5rem] mt-[1rem] rounded-[0.5rem] w-[20rem]"
+            placeholder="Enter date"
+            required
+            name="date"
+            id="date"
+            value={formData.date}
+            onChange={handleChange}
+        />
                     <select id="types" required name="types" value={formData.types} 
                         className="text-[1.2rem] h-[3rem] border-4 outline-none border-gray-300 pl-[0.5rem] mt-[1rem] rounded-[0.5rem] w-[20rem]"
                         onChange={handleChange}
@@ -62,7 +73,7 @@ function Form({Add, formData, SetFormData}) {
                         placeholder="Add a reference" rows={3}
                         onChange={handleChange}
                     />
-
+                    
                     <button type="submit"
                         className="bg-green-500 pr-[2rem] pl-[1rem] flex items-center gap-2 text-[1.1rem] font-bold mt-[1rem] text-white border-4 border-gray-200 rounded-[1rem] p-[0.5rem]"
                     ><FaPlus/> Add </button>
