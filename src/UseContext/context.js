@@ -4,8 +4,8 @@ import { jwtDecode } from 'jwt-decode';
 import { useAsyncError } from "react-router-dom";
 
 
-let url = process.env.REACT_APP_BACKEND_URL;
-// let url = "http://localhost:5000/api/v1/";
+// let url = process.env.REACT_APP_BACKEND_URL;
+let url = "http://localhost:5000/api/v1/";
 
 
 
@@ -52,11 +52,11 @@ export const AppContext_provider  = ({children})  => {
     // Function to handle signup
     const signup = async (userData) => {
         try {
-            const response = await axios.post(`${url}signup`, userData,);
-            // console.log("Signup successful:", response.data.message);
-            return response.data; // Return response to handle on frontend
+            const response = await axios.post(`${url}signup`, userData, {
+                withCredentials: true,
+            });
+            return response.data;
         } catch (error) {
-            // console.log("error here")
             console.error("Signup Error:", error.response?.data.message || error.message);
         }
     };
@@ -64,20 +64,23 @@ export const AppContext_provider  = ({children})  => {
     // Function to handle login
     const login = async (credentials) => {
         try {
-            const response = await axios.post(`${url}login`, credentials);
+            const response = await axios.post(`${url}login`, credentials, {
+                withCredentials: true,
+            });
             const { token, data } = response.data;
             setLoggedIn(true);
-            // Store token in localStorage and update state
             localStorage.setItem("token", token);
             setToken(token);
             setUser(data);
             setId(data._id);
             GetIncome();
             GetExpend();
-            return response.data; // Return response to handle on frontend
+            return response.data;
         } catch (error) {
-            // console.log("login failed")
             console.error("Login Error:", error.response?.data.message || error.message);
+            if (error.response?.status === 401) {
+                alert("Invalid credentials. Please try again.");
+            }
         }
     };
 
